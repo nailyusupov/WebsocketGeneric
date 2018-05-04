@@ -17,6 +17,7 @@ function writeToScreen(message) {
 
 function onOpen() {
     writeToScreen("Connected to " + wsUri);
+    console.log("Connected to " + wsUri);
 }
 // End test functions
 
@@ -30,4 +31,11 @@ function sendText(json) {
 function onMessage(evt) {
     console.log("received: " + evt.data);
     drawImageText(evt.data);
+}
+
+websocket.onclose = function(evt){
+    console.log("Socket closed");
+    //setTimeout(function(){
+         //websocket = new WebSocket(wsUri);
+    //}, 1000);
 }

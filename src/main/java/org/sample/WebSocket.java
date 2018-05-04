@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -40,14 +41,19 @@ public class WebSocket {
 
     @OnOpen
     public void onOpen(Session peer) {
+        System.out.println("Session opened on server WebSocket, sessionId: "+peer.getId());
         peers.add(peer);
     }
 
     @OnClose
     public void onClose(Session peer) {
+        System.out.println("Session closed on server WebSocket");
         peers.remove(peer);
     }
     
-    
-
+    @OnError
+    public void onError(Session peer, Throwable t) {
+        System.out.println("WebSocket server error: "+t.toString());
+        peers.remove(peer);
+    }
 }
